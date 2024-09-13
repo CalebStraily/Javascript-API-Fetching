@@ -80,3 +80,67 @@ function pasteTraits(currentHeight, currentWeight)
 }
 
 showButton.addEventListener("click", pasteDataToPage);
+
+function fetchPokemonData()
+{
+    let kricketuneUrl = `https://pokeapi.co/api/v2/pokemon/kricketune`;
+    let finneonUrl = `https://pokeapi.co/api/v2/pokemon/finneon`;
+    let pikachuUrl = `https://pokeapi.co/api/v2/pokemon/pikachu`;
+
+    //Activates fetching to get data from API
+    fetch(pikachuUrl)
+    //See if we get an answer from this link. And breaks it down as JSON (Just an Object)
+    .then(response => response.json())
+    //This is the place where you with an object. Do whatever you want.
+    .then(data => 
+    {
+        console.log(data);
+        console.log(data.id);
+        console.log(data.species.name);
+        console.log(data.moves[25].move);
+
+        putPickachuOnWebsite(data.sprites.front_default);
+    })
+    .catch(error =>
+    {
+        console.log(error)
+    })
+    
+    //Activates fetching to get data from API
+    fetch(kricketuneUrl)
+        //See if we get an answer from this link. And breaks it down as JSON (Just an Object)
+        .then(response => response.json())
+        //This is the place where you with an object. Do whatever you want.
+        .then(data => 
+        {
+            console.log(data.cries.legacy);
+        })
+        .catch(error =>
+        {
+            console.log(error)
+        })
+    
+    //Activates fetching to get data from API
+    fetch(finneonUrl)
+        //See if we get an answer from this link. And breaks it down as JSON (Just an Object)
+        .then(response => response.json())
+        //This is the place where you with an object. Do whatever you want.
+        .then(data => 
+        {
+            console.log(data.cries.legacy);
+        })
+        .catch(error =>
+        {
+            console.log(error)
+        })
+}
+
+fetchPokemonData();
+
+function putPickachuOnWebsite(pikaPicture)
+{
+    let characterTraits = document.querySelector(".characterTraits");
+    let imgSrc = document.createElement("img");
+    imgSrc.src = pikaPicture;
+    characterTraits.append(imgSrc);
+}
