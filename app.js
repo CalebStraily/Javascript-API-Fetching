@@ -81,14 +81,14 @@ function pasteTraits(currentHeight, currentWeight)
 
 showButton.addEventListener("click", pasteDataToPage);
 
-function fetchPokemonData()
+async function fetchPokemonData()
 {
     let kricketuneUrl = `https://pokeapi.co/api/v2/pokemon/kricketune`;
     let finneonUrl = `https://pokeapi.co/api/v2/pokemon/finneon`;
     let pikachuUrl = `https://pokeapi.co/api/v2/pokemon/pikachu`;
 
     //Activates fetching to get data from API
-    fetch(pikachuUrl)
+    await fetch(pikachuUrl)
     //See if we get an answer from this link. And breaks it down as JSON (Just an Object)
     .then(response => response.json())
     //This is the place where you with an object. Do whatever you want.
@@ -97,8 +97,10 @@ function fetchPokemonData()
         console.log(data);
         console.log(data.id);
         console.log(data.species.name);
-        console.log(data.moves[25].move);
-
+        for (let i = 0; i < data.moves.length; i++)
+        {
+            console.log(data.moves[i].move.name);
+        }
         putPickachuOnWebsite(data.sprites.front_default);
     })
     .catch(error =>
